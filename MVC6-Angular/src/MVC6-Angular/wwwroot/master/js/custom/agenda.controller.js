@@ -7,8 +7,8 @@
     'use strict';
 
     angular
-        .module('custom')
-        .controller('Controller', Controller);
+        .module('app.agenda')
+        .controller('AgendaController', Controller);
 
     Controller.$inject = ['$log'];
     function Controller($log) {

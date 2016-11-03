@@ -26,6 +26,7 @@
             'app.translate',
             'app.settings',
             'app.tables',
+            'app.agenda',
             'app.utils'           
         ]);
 })();

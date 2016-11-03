@@ -24,6 +24,11 @@
         "translate": "sidebar.nav.menu.MENU"
     },
     {
+        "text": "Agenda",
+        "sref": "app.agenda",
+        "icon": "fa fa-users"
+    },
+    {
         "text": "Pessoa",
         "sref": "app.pessoa",
         "icon": "fa fa-file-o"

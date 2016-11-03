@@ -52,6 +52,12 @@
                 title: 'Single View',
                 templateUrl: helper.basepath('SingleView/Index')
             })
+            .state('app.agenda', {
+                url: '/Agenda',
+                title: 'Agenda',
+                templateUrl: helper.basepath('Agenda/Index'),
+                resolve: helper.resolveFor('datatables')
+            })
             .state('app.pessoa', {
                 url: '/Pessoa',
                 title: 'Pessoa',
