@@ -61,7 +61,7 @@
               $animate.addClass(el, 'preloader-hidden');
               // retore scrollbar
               angular.element('body').css('overflow', '');
-            }, 300);
+            }, 0);
           }
 
           function appReady() {
@@ -77,7 +77,7 @@
                 // with resolve this fires only once
                 $timeout(function(){
                   deferred.resolve();
-                }, 3000);
+                }, 1000);
 
                 off();
               }
