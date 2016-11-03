@@ -75,5 +75,12 @@ namespace Angle_MVC6_Angular_Seed.Models.Repositorio
             _dbContext.TbAgenda.Update(agenda);
             _dbContext.SaveChanges();
         }
+
+        public void Delete(int id)
+        {
+            var agenda = Agenda(id);
+            _dbContext.TbAgenda.Remove(agenda);
+            _dbContext.SaveChanges();
+        }
     }
 }

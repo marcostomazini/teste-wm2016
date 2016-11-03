@@ -66,6 +66,13 @@ namespace Angle_MVC6_Angular_Seed.Controllers
             return Ok(status);
         }
 
+        [HttpDelete]
+        public IActionResult DeletarAgenda(int id)
+        {
+            var status = _agendaBo.DeletarAgenda(id);
+            return Ok(status);
+        }
+
         public IActionResult _InserirAgendaModal()
         {
             return PartialView();

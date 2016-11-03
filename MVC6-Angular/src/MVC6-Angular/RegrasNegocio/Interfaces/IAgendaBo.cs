@@ -13,6 +13,18 @@ namespace Angle_MVC6_Angular_Seed.RegrasNegocio
 {
     public interface IAgendaBo
     {
+        /// <summary>
+        ///     Metodo que salva a agenda e seus telefones
+        /// </summary>
+        /// <param name="agenda"></param>
+        /// <returns></returns>
         bool SalvarAgenda(AgendaDto agenda);
+
+        /// <summary>
+        ///     Metodo que exclui a agenda e seus telefones
+        /// </summary>
+        /// <param name="agenda"></param>
+        /// <returns></returns>
+        bool DeletarAgenda(int id);
     }
 }

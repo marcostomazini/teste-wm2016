@@ -52,5 +52,11 @@ namespace Angle_MVC6_Angular_Seed.Models.Repositorio
         /// </summary>
         /// <param name="agenda"></param>
         void Update(TbAgenda agenda);
+
+        /// <summary>
+        ///     Metodo que remove uma agenda
+        /// </summary>
+        /// <param name="agenda"></param>
+        void Delete(int id);
     }
 }

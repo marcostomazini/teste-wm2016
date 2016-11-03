@@ -46,22 +46,34 @@ namespace Angle_MVC6_Angular_Seed.RegrasNegocio
             return true;
         }
 
+        public bool DeletarAgenda(int id)
+        {
+            if (id > 0)
+            {
+                _agendaRepositorio.Delete(id);
+            }
+
+            return true;
+        }
+
         private static void ConverterDto(AgendaDto agenda, TbAgenda agendaEntidade)
         {
             agendaEntidade.NmAgenda = agenda.nome;
             agendaEntidade.DtInclusao = DateTime.Now;
 
-            agendaEntidade.TbTelefone = agenda.Telefones.Select(s => new TbTelefone()
-            {
-                CdTelefone = s.id,
-                CdAgenda = agenda.id,
-                CdTipoTelefone = s.tipo,
-                DddTelefone = s.ddd,
-                NrTelefone = s.numero,
-                NmContato = s.nome,
-                DtAlteracao = DateTime.Now,
-                DtInclusao = DateTime.Now
-            }).ToList();
+            agendaEntidade.TbTelefone = agenda.Telefones
+                .Where(x => x.id == 0)
+                .Select(s => new TbTelefone()
+                {
+                    CdTelefone = s.id,
+                    CdAgenda = agenda.id,
+                    CdTipoTelefone = s.tipo,
+                    DddTelefone = s.ddd,
+                    NrTelefone = s.numero,
+                    NmContato = s.nome,
+                    DtAlteracao = DateTime.Now,
+                    DtInclusao = DateTime.Now
+                }).ToList();
         }
     }
 }

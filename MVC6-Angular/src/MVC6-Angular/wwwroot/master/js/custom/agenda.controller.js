@@ -111,7 +111,7 @@
 	        $scope.ok = function (objeto) {
 
 	            if (objeto == undefined || objeto.nome == undefined || objeto.nome == '') {
-	                SweetAlert.swal('Erro!', 'existem campos n„o preenchidos', 'error');
+	                SweetAlert.swal('Erro!', 'existem campos n√£o preenchidos', 'error');
 	                return;
 	            }
 	            var model = objeto;
@@ -178,33 +178,38 @@
 
 	    $scope.deleteConfirm = function (index) {
 	        SweetAlert.swal({
-	            title: 'VocÍ tem certeza?',
-	            text: 'ApÛs deletado n„o vai ser mais possÌvel acessar o registro!',
+	            title: 'Voc√™ tem certeza?',
+	            text: 'Ap√≥s deletado n√£o vai ser mais poss√≠vel acessar o registro!',
 	            type: 'warning',
 	            showCancelButton: true,
 	            confirmButtonColor: '#DD6B55',
 	            confirmButtonText: 'Sim',
-	            cancelButtonText: 'N„o',
+	            cancelButtonText: 'N√£o',
 	            closeOnConfirm: false,
 	            closeOnCancel: false
 	        }, function (isConfirm) {
 	            if (isConfirm) {
-	                var usuarioMobile = $scope.leiloes[index];
-	                if (usuarioMobile) {
-	                    usuarioMobile.$remove(function (response) {
-	                        if (response) {
-	                            $scope.leiloes = _.without($scope.leiloes, usuarioMobile);
+	                $http({
+	                    method: 'DELETE',
+	                    url: '/Agenda/DeletarAgenda/' + index.cdAgenda
+	                }).then(function successCallback(response) {	                    
+	                    $http({
+	                        method: 'GET',
+	                        url: '/Agenda/BuscaAgenda'
+	                    }).then(function successCallback(response) {
+	                        $scope.agendas = response.data;
+	                        SweetAlert.swal('Deletado!', 'O registro foi deletado.', 'success');
+	                    }, function errorCallback(response) {
 
-	                            SweetAlert.swal('Deletado!', 'O registro foi deletado.', 'success');
-	                        }
-	                    }, function (errorResponse) {
-	                        $scope.error = errorResponse.data.message;
-	                        SweetAlert.swal('Erro!', errorResponse.data.message, errorResponse.data.type);
 	                    });
-	                }
+	                }, function errorCallback(response) {
 
+	                });
+	                //if (deleted) {
+	                //    SweetAlert.swal('Deletado!', 'O registro foi deletado.', 'success');
+	                //}
 	            } else {
-	                SweetAlert.swal('Cancelado', 'O registro n„o foi removido :)', 'error');
+	                SweetAlert.swal('Cancelado', 'O registro n√£o foi removido :)', 'error');
 	            }
 	        });
 	    };
