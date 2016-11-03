@@ -44,7 +44,8 @@
         "version": "1.0.0-preview2-final",
         "type": "build"
     },
-    "NEST": "2.4.6"  },
+    "NEST": "2.4.6",
+    "Microsoft.AspNetCore.Mvc.Abstractions": "1.0.1"  },
 
   "tools": {
     "BundlerMinifier.Core": "2.0.238",

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Angle_MVC6_Angular_Seed.Models;
 
-namespace Angle_MVC6_Angular_Seed.Models.AccountViewModels
+namespace Angle_MVC6_Angular_Seed.Dtos.AgendaDtos
 {
-    public class AgendaModel : Entidade
+    public class AgendaDto : Entidade
     {
         
     }

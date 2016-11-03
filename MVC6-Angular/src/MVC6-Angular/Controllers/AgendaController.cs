@@ -3,26 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Nest;
-using Elasticsearch.Net;
 using Angle_MVC6_Angular_Seed.Models.PessoaViewModels;
+using Angle_MVC6_Angular_Seed.RegrasNegocio;
+using Angle_MVC6_Angular_Seed.Dtos.AgendaDtos;
 
 namespace Angle_MVC6_Angular_Seed.Controllers
 {
     public class AgendaController : Controller
     {
-        public readonly ElasticClient _client;
+        //public readonly ElasticClient _client;
+        public readonly IAgendaBo _agendaBo;
 
-        public AgendaController()
+        public AgendaController(IAgendaBo agendaBo)
         {
             //var node = new Uri("http://localhost:9200");
-            var node = new Uri("https://x2zhpy3z:aw1xordolgdltk4z@azalea-9437794.us-east-1.bonsaisearch.net");
+            //var node = new Uri("https://x2zhpy3z:aw1xordolgdltk4z@azalea-9437794.us-east-1.bonsaisearch.net");
 
-            var settings = new ConnectionSettings(
-                node
-            );
+            //var settings = new ConnectionSettings(
+            //    node
+            //);
 
-            _client = new ElasticClient(settings);
+            //_client = new ElasticClient(settings);
+
+            _agendaBo = agendaBo;
         }
 
         public IActionResult Index()
@@ -45,6 +48,12 @@ namespace Angle_MVC6_Angular_Seed.Controllers
             return View();
         }
 
+        public IActionResult SalvarAgenda(AgendaDto agenda)
+        {
+            var status = _agendaBo.SalvarAgenda(agenda);
+            return View(status);
+        }
+
         public IActionResult Pessoas()
         {          
             var person = new PessoaDto
@@ -55,16 +64,16 @@ namespace Angle_MVC6_Angular_Seed.Controllers
                 Genero = Sexo.Masculino
             };
 
-            var index = _client.Index(person, i => i
-                .Index("teste"));
+            //var index = _client.Index(person, i => i
+            //    .Index("teste"));
 
-            var searchResults = _client.Search<PessoaDto>(s => s
-                .From(0)
-                .Size(10)
-                .Query(q => q
-                     .Term(p => p.Nome, "martijn")
-                )
-            );
+            //var searchResults = _client.Search<PessoaDto>(s => s
+            //    .From(0)
+            //    .Size(10)
+            //    .Query(q => q
+            //         .Term(p => p.Nome, "martijn")
+            //    )
+            //);
 
             return View();
         }

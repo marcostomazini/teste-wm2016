@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Angle_MVC6_Angular_Seed.Models.AccountViewModels
+namespace Angle_MVC6_Angular_Seed.Models.AgendaModels
 {
     public class TelefoneModel : Entidade
     {

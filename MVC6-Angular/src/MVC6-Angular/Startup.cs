@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Angle_MVC6_Angular_Seed.Data;
 using Angle_MVC6_Angular_Seed.Models;
 using Angle_MVC6_Angular_Seed.Services;
+using Angle_MVC6_Angular_Seed.RegrasNegocio;
 
 namespace Angle_MVC6_Angular_Seed
 {
@@ -45,8 +46,7 @@ namespace Angle_MVC6_Angular_Seed
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            services.AddEntityFramework()
-                .AddSqlServer()
+            services.AddEntityFrameworkSqlServer()
                 .AddDbContext<ApplicationDbContext>(options => {
                     options.UseSqlServer(Configuration["Data:DefaultConnection"]);
                 })
@@ -54,8 +54,8 @@ namespace Angle_MVC6_Angular_Seed
                     options.UseSqlServer(Configuration["Data:AgendaContext"]);
                 });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -66,6 +66,8 @@ namespace Angle_MVC6_Angular_Seed
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+             services.AddScoped<IAgendaBo, AgendaBo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
