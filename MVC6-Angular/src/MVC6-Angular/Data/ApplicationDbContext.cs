@@ -24,12 +24,6 @@ namespace Angle_MVC6_Angular_Seed.Data
             // Add your customizations after calling base.OnModelCreating(builder);
 
 
-        }
-        
-        public DbSet<AgendaModel> Agendas { get; set; }
-
-        public DbSet<TelefoneModel> Telefones { get; set; }
-
-        public DbSet<TipoTelefoneModel> TiposTelefone { get; set; }
+        }               
     }
 }

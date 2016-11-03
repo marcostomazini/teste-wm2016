@@ -20,7 +20,7 @@
 							<input type="text" 
 								name="code" 
 								required 
-								ng-model="agenda.name" 
+								ng-model="telefones.nome" 
 								class="form-control ng-dirty ng-touched ng-invalid ng-invalid-required">                           
 						</div>
 					</div>
@@ -39,7 +39,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in telefones">
+                        <tr ng-repeat="item in telefones.telefones">
                             <td>{{$index}}</td>
 
                             <td class="text-center" ng-hide="item.modify">
@@ -66,7 +66,7 @@
                             </td>
 
                             <td>
-                                {{ item.name || 'não definido' }}
+                                {{ item.nome || 'não definido' }}
                             </td>
 
                             <td>
@@ -74,7 +74,7 @@
                             </td>
 
                             <td>
-                                {{ item.tipo || 'não definido' }}
+                                {{ item.tipo == '1' ? 'residencial' : item.tipo == '2' ? 'celular' : 'comercial' || 'não definido' }}
                             </td>
 
                         </tr>
@@ -94,7 +94,7 @@
                             <input type="text"
                                    name="code"
                                    required
-                                   ng-model="telefone.name"
+                                   ng-model="telefone.nome"
                                    class="form-control ng-dirty ng-touched ng-invalid ng-invalid-required">
                         </div>
                     </div>
@@ -135,14 +135,15 @@
                 <fieldset>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">
-                            Tipo
+                            Tipo do Produto
                         </label>
                         <div class="col-sm-6">
-                            <input type="text"
-                                   name="code"
-                                   required
-                                   ng-model="telefone.tipo"
-                                   class="form-control ng-dirty ng-touched ng-invalid ng-invalid-required">
+                            <select name="select" required="" ng-model="telefone.tipo" class="form-control ng-dirty ng-valid-parse ng-valid-required ng-touched ng-pristine ng-invalid ng-invalid-required">
+                                <option value=""></option>
+                                <option value="1">Residêncial</option>
+                                <option value="2">Celular</option>
+                                <option value="3">Comercial</option>
+                            </select>
                         </div>
                     </div>
                 </fieldset>
@@ -153,7 +154,7 @@
 
 		<div class="modal-footer">
             <button ng-click="ok(telefone)" ng-show="showInputs" class="btn btn-primary">Adicionar</button>
-			<button ng-click="ok(agenda)" ng-show="!showInputs" class="btn btn-primary">Salvar</button>
+			<button ng-click="ok(telefones)" ng-show="!showInputs" class="btn btn-primary">Salvar</button>
 			<button ng-click="cancel()" class="btn btn-warning">Cancelar</button>
 		</div>
 

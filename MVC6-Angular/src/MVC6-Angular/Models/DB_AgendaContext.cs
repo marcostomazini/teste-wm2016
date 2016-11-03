@@ -17,7 +17,7 @@ namespace Angle_MVC6_Angular_Seed.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-            optionsBuilder.UseSqlServer(@"Server=54.236.71.123;Database=DB_Agenda;User ID=agenda;Password=agenda;");
+            optionsBuilder.UseSqlServer(@"Server=54.236.71.123;Database=DB_Agenda;User ID=agenda;Password=agenda;");            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

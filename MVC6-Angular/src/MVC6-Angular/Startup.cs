@@ -13,6 +13,7 @@ using Angle_MVC6_Angular_Seed.Data;
 using Angle_MVC6_Angular_Seed.Models;
 using Angle_MVC6_Angular_Seed.Services;
 using Angle_MVC6_Angular_Seed.RegrasNegocio;
+using Angle_MVC6_Angular_Seed.Models.Repositorio;
 
 namespace Angle_MVC6_Angular_Seed
 {
@@ -62,7 +63,9 @@ namespace Angle_MVC6_Angular_Seed
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
 
-             services.AddScoped<IAgendaBo, AgendaBo>();
+            services.AddDbContext<DB_AgendaContext>(ServiceLifetime.Scoped);
+            services.AddScoped<IAgendaBo, AgendaBo>();
+            services.AddScoped<IAgendaRepositorio, AgendaRepositorio>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

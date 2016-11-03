@@ -14,6 +14,7 @@
 	'DTColumnDefBuilder',
 	'SweetAlert',
     '$uibModal',
+    '$http',
 	function ($scope,
 		$interval,
 		$stateParams,
@@ -21,7 +22,8 @@
 		DTOptionsBuilder,
 		DTColumnDefBuilder,
 		SweetAlert,
-        $uibModal) {
+        $uibModal,
+        $http) {
 
 	    this.dtOptions = DTOptionsBuilder
             .newOptions()
@@ -41,13 +43,20 @@
 	        	.notSortable()
 	    ];
 
-	    $scope.urlBase = '/#!/usuarios-mobile';
+	    $scope.urlBase = '/#!/usuarios-mobile';	  
 
-	    // Context
-	    $scope.agendas = [];
+	    $http({
+	        method: 'GET',
+	        url: '/Agenda/BuscaAgenda'
+	    }).then(function successCallback(response) {
+	        $scope.agendas = response.data;
+	    }, function errorCallback(response) {
 
-	    ModalInstanceCtrl.$inject = ['$scope', '$uibModal', 'DTOptionsBuilder', 'DTColumnDefBuilder'];
-	    function ModalInstanceCtrl($scope, $uibModal, DTOptionsBuilder, DTColumnDefBuilder) {
+	    });
+	    
+
+	    ModalInstanceCtrl.$inject = ['$scope', '$uibModal', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'item'];
+	    function ModalInstanceCtrl($scope, $uibModal, DTOptionsBuilder, DTColumnDefBuilder, item) {
 
 	        $scope.dtOptionsTelefone = DTOptionsBuilder
                .newOptions()
@@ -68,7 +77,29 @@
                     .notSortable()
 	        ];
 
-	        $scope.telefones = [];
+	        $http({
+	            method: 'GET',
+	            url: '/Agenda/BuscaTiposTelefone'
+	        }).then(function successCallback(response) {
+	            $scope.tiposTelefone = response;
+	        }, function errorCallback(response) {
+
+	        });
+
+	        if (item == undefined) {
+	            $scope.telefones = {
+	                telefones: []
+	            };
+	        } else {
+	            $http({
+	                method: 'GET',
+	                url: '/Agenda/BuscaTelefonesPorId/' + item.cdAgenda
+	            }).then(function successCallback(response) {
+	                $scope.telefones = response.data;
+	            }, function errorCallback(response) {
+
+	            });
+	        }	        
 
 	        $scope.open = function ($event) {
 	            $event.preventDefault();
@@ -79,7 +110,7 @@
 
 	        $scope.ok = function (objeto) {
 
-	            if (objeto == undefined || objeto.name == undefined || objeto.name == '') {
+	            if (objeto == undefined || objeto.nome == undefined || objeto.nome == '') {
 	                SweetAlert.swal('Erro!', 'existem campos não preenchidos', 'error');
 	                return;
 	            }
@@ -87,20 +118,19 @@
 
 	            if ($scope.showInputs) {
 	                $scope.showInputs = false;
-	                $scope.telefones.push(objeto);
+	                $scope.telefones.telefones.push(objeto);
 	                $scope.telefone = {};
-	            } else
-                    // salva a agenda
-	                $scope.$close();
+	            } else {
+	                $http({
+	                    method: 'POST',
+	                    url: '/Agenda/SalvarAgenda',
+	                    data: $scope.telefones
+	                }).then(function successCallback(response) {
+	                    $scope.$close();
+	                }, function errorCallback(response) {
 
-
-	            //// Redirect after save
-	            //model.$save(function (response) {
-	            //    console.log(response);
-	            //    $scope.$close(response);
-	            //}, function (errorResponse) {
-	            //    SweetAlert.swal('Erro!', errorResponse.data.message, errorResponse.data.type);
-	            //});
+	                });
+	            }
 	        };
 
 	        $scope.cancel = function () {
@@ -118,27 +148,32 @@
 	    }
 
 	    $scope.addItem = function (item) {
-	        // var novoUsuario = {
-	        // 	name: null,
-	        // 	email: null
-	        // };
-	        // $scope.usuariosMobile.unshift(novoUsuario);				
 	        var modalInstance = $uibModal.open({
 	            templateUrl: 'modalInserir.html',
 	            controller: ModalInstanceCtrl,
+	            resolve: {
+	                item: item
+	            },
 	            size: 'md'
 	        });
 
 	        var state = $('#modal-state');
 	        modalInstance.result.then(function () {
-	            state.text('Modal dismissed with OK status');
+	            $http({
+	                method: 'GET',
+	                url: '/Agenda/BuscaAgenda'
+	            }).then(function successCallback(response) {
+	                $scope.agendas = response.data;
+	            }, function errorCallback(response) {
+
+	            });
 	        }, function () {
 	            state.text('Modal dismissed with Cancel status');
 	        });
 	    };
 
 	    $scope.visualizar = function (item) {
-	        window.location = '/#!/veiculos/' + item._id;
+	        $scope.addItem(item);
 	    };
 
 	    $scope.deleteConfirm = function (index) {
