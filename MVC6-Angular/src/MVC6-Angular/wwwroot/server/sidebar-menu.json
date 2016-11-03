@@ -5,32 +5,16 @@
         "translate": "sidebar.heading.HEADER"
     },
     {
-        "text": "Single View",
-        "sref": "app.singleview",
-        "icon": "fa fa-file-o",
-        "translate": "sidebar.nav.SINGLEVIEW"
-    },
-    {
         "text": "Menu",
         "sref": "#",
         "icon": "icon-folder",
         "submenu": [
-            {
-                "text": "Sub Menu",
-                "sref": "app.menuview",
-                "translate": "sidebar.nav.menu.SUBMENU"
-            }
+          {
+            "text": "Agenda",
+            "sref": "app.agenda",
+            "icon": "fa fa-users"
+          }
         ],
         "translate": "sidebar.nav.menu.MENU"
-    },
-    {
-        "text": "Agenda",
-        "sref": "app.agenda",
-        "icon": "fa fa-users"
-    },
-    {
-        "text": "Pessoa",
-        "sref": "app.pessoa",
-        "icon": "fa fa-file-o"
     }
 ]

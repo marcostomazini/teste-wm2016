@@ -46,13 +46,8 @@ namespace Angle_MVC6_Angular_Seed
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            services.AddEntityFrameworkSqlServer()
-                .AddDbContext<ApplicationDbContext>(options => {
-                    options.UseSqlServer(Configuration["Data:DefaultConnection"]);
-                })
-                .AddDbContext<AgendaContext>(options => {
-                    options.UseSqlServer(Configuration["Data:AgendaContext"]);
-                });
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             //services.AddDbContext<ApplicationDbContext>(options =>
             //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));

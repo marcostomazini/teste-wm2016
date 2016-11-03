@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Angle_MVC6_Angular_Seed.Data;
 
 namespace Angle_MVC6_Angular_Seed.Data.Migrations
 {
@@ -15,8 +13,122 @@ namespace Angle_MVC6_Angular_Seed.Data.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.0.0-rc3")
+                .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Angle_MVC6_Angular_Seed.Models.AgendaModels.AgendaModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime?>("DataAlteracao");
+
+                    b.Property<DateTime>("DataInclusao");
+
+                    b.Property<string>("Nome")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("agenda_tom");
+                });
+
+            modelBuilder.Entity("Angle_MVC6_Angular_Seed.Models.AgendaModels.TelefoneModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("AgendaModelId");
+
+                    b.Property<DateTime?>("DataAlteracao");
+
+                    b.Property<DateTime>("DataInclusao");
+
+                    b.Property<string>("Ddd")
+                        .IsRequired();
+
+                    b.Property<string>("Nome")
+                        .IsRequired();
+
+                    b.Property<string>("Numero")
+                        .IsRequired();
+
+                    b.Property<int?>("TipoTelefoneId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AgendaModelId");
+
+                    b.HasIndex("TipoTelefoneId");
+
+                    b.ToTable("telefone_tom");
+                });
+
+            modelBuilder.Entity("Angle_MVC6_Angular_Seed.Models.AgendaModels.TipoTelefoneModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime?>("DataAlteracao");
+
+                    b.Property<DateTime>("DataInclusao");
+
+                    b.Property<string>("Nome")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tipo_telefone_tom");
+                });
+
+            modelBuilder.Entity("Angle_MVC6_Angular_Seed.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id");
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Email")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
                 {
@@ -125,53 +237,15 @@ namespace Angle_MVC6_Angular_Seed.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Angle_MVC6_Angular_Seed.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Angle_MVC6_Angular_Seed.Models.AgendaModels.TelefoneModel", b =>
                 {
-                    b.Property<string>("Id");
+                    b.HasOne("Angle_MVC6_Angular_Seed.Models.AgendaModels.AgendaModel")
+                        .WithMany("Telefones")
+                        .HasForeignKey("AgendaModelId");
 
-                    b.Property<int>("AccessFailedCount");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
-
-                    b.Property<string>("Email")
-                        .HasAnnotation("MaxLength", 256);
-
-                    b.Property<bool>("EmailConfirmed");
-
-                    b.Property<bool>("LockoutEnabled");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasAnnotation("MaxLength", 256);
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasAnnotation("MaxLength", 256);
-
-                    b.Property<string>("PasswordHash");
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("SecurityStamp");
-
-                    b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<string>("UserName")
-                        .HasAnnotation("MaxLength", 256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers");
+                    b.HasOne("Angle_MVC6_Angular_Seed.Models.AgendaModels.TipoTelefoneModel", "TipoTelefone")
+                        .WithMany()
+                        .HasForeignKey("TipoTelefoneId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

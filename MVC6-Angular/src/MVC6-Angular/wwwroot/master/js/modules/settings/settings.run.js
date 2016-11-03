@@ -26,8 +26,8 @@
       // Global Settings
       // -----------------------------------
       $rootScope.app = {
-        name: 'Angle',
-        description: 'Angular Bootstrap Admin Template',
+        name: 'Teste WM',
+        description: 'teste webmotors mvc6 - dotnet core (win/linux)',
         year: ((new Date()).getFullYear()),
         layout: {
           isFixed: true,

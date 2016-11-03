@@ -56,13 +56,7 @@
                 url: '/Agenda',
                 title: 'Agenda',
                 templateUrl: helper.basepath('Agenda/Index'),
-                resolve: helper.resolveFor('datatables')
-            })
-            .state('app.pessoa', {
-                url: '/Pessoa',
-                title: 'Pessoa',
-                templateUrl: helper.basepath('Pessoa/Pessoas'),
-                resolve: helper.resolveFor('datatables')
+                resolve: helper.resolveFor('datatables','oitozero.ngSweetAlert', 'toaster')
             })
             .state('app.menuview', {
                 url: '/MenuView',

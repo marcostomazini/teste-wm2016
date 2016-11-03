@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Angle_MVC6_Angular_Seed.Models;
+using Angle_MVC6_Angular_Seed.Models.AgendaModels;
 
 namespace Angle_MVC6_Angular_Seed.Data
 {
@@ -21,6 +22,14 @@ namespace Angle_MVC6_Angular_Seed.Data
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
+
+
         }
+        
+        public DbSet<AgendaModel> Agendas { get; set; }
+
+        public DbSet<TelefoneModel> Telefones { get; set; }
+
+        public DbSet<TipoTelefoneModel> TiposTelefone { get; set; }
     }
 }

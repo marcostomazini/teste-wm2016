@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Angle_MVC6_Angular_Seed.Models.PessoaViewModels;
 using Angle_MVC6_Angular_Seed.RegrasNegocio;
 using Angle_MVC6_Angular_Seed.Dtos.AgendaDtos;
+using Angle_MVC6_Angular_Seed.Models;
 
 namespace Angle_MVC6_Angular_Seed.Controllers
 {
@@ -30,6 +31,8 @@ namespace Angle_MVC6_Angular_Seed.Controllers
 
         public IActionResult Index()
         {
+            var t = new DB_AgendaContext();
+            var aasd= t.TbAgenda;
             return View();
         }
 
@@ -52,6 +55,16 @@ namespace Angle_MVC6_Angular_Seed.Controllers
         {
             var status = _agendaBo.SalvarAgenda(agenda);
             return View(status);
+        }
+
+        public IActionResult _InserirAgendaModal()
+        {
+            return PartialView();
+        }
+
+        public IActionResult _EditarAgendaModal()
+        {
+            return PartialView();
         }
 
         public IActionResult Pessoas()

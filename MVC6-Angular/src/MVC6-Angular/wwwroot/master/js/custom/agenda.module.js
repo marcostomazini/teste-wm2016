@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('custom', [
+        .module('app.agenda', [
             // request the the entire framework
             'angle',
             // or just modules

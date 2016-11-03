@@ -1,143 +1,163 @@
-﻿@{
-    Layout = null;
-}
-<h3>
-    Data Tables
-    <small>Tables, one step forward.</small>
-</h3>
-<!-- Zero Configuration-->
-<div class="panel panel-default">
-    <div class="panel-heading">
-        Data Tables |
-        <small>Zero Configuration</small>
+﻿<script type="text/ng-template" id="modalInserir.html">
+    <div class="modal-header">
+    	<button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+    	<h4 id="myModalLabel" class="modal-title" ng-show="!showInputs">Adicionar Agenda</h4>
+        <h4 id="myModalLabel" class="modal-title" ng-show="showInputs">Adicionar Telefone</h4>
     </div>
-    <div class="panel-body">
-        <table datatable="" class="row-border hover">
-            <thead>
-                <tr>
-                    <th>Card Id</th>
-                    <th>First name</th>
-                    <th>Last name</th>
-                    <th>Age</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>123123123</td>
-                    <td>Hannah</td>
-                    <td>Burns</td>
-                    <td>26</td>
-                </tr>
-                <tr>
-                    <td>33333344444</td>
-                    <td>Addison</td>
-                    <td>Payne</td>
-                    <td>32</td>
-                </tr>
-                <tr>
-                    <td>9998888999</td>
-                    <td>Kylie</td>
-                    <td>Hudson</td>
-                    <td>100</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<!-- ngRepeat + ngResource-->
-<div class="panel panel-default">
-    <div class="panel-heading">
-        Datatables |
-        <small>ngRepeat + ngResource</small>
-    </div>
-    <div class="panel-body">
-        <div ng-controller="DataTableController as table1">
-            <table datatable="ng" class="row-border hover">
-                <thead>
-                    <tr>
-                        <th>Person ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="person in table1.persons">
-                        <td>{{ person.id }}</td>
-                        <td>{{ person.firstName }}</td>
-                        <td>{{ person.lastName }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-<!-- Chaning data-->
-<div class="panel panel-default">
-    <div class="panel-heading">
-        Datatables |
-        <small>Chaning data</small>
-    </div>
-    <div class="panel-body">
-        <div ng-controller="DataTableController as table2">
-            <form ng-submit="table2.addPerson()" class="form-inline">
-                <table datatable="ng" dt-options="table2.dtOptions" dt-column-defs="table2.dtColumnDefs" class="row-border hover">
+    
+	<form name="formValidate" ng-submit="submitForm()" novalidate class="form-validate form-horizontal ng-pristine ng-invalid ng-invalid-required ng-valid-email ng-valid-pattern ng-valid-url ng-invalid-validator ng-valid-minlength ng-valid-maxlength ng-valid-blacklist ng-valid-date ng-valid-date-disabled ng-valid-time">
+
+		<div class="modal-body">
+
+			<div class="panel-body" ng-show="!showInputs">
+		      
+		      	<fieldset>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">
+							Nome
+						</label>
+						<div class="col-sm-6">
+							<input type="text" 
+								name="code" 
+								required 
+								ng-model="agenda.name" 
+								class="form-control ng-dirty ng-touched ng-invalid ng-invalid-required">                           
+						</div>
+					</div>
+				</fieldset>             
+
+                <table id="grid-telefones" datatable="ng" dt-options="dtOptionsTelefone" dt-column-defs="dtColumnDefsTelefone" class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>
-                                <div class="form-group">
-                                    <label>
-                                        <input type="number" name="id" ng-model="table2.person2Add.id" value="" class="form-control" />
-                                    </label>
-                                </div>
+                            <th>#</th>
+                            <th style="cursor:pointer;" class="col-sm-1 btn-primary">
+                                <a class="col-xs-12 btn btn-primary" ng-click="addItem()">Inserir</a>
                             </th>
-                            <th>
-                                <div class="form-group">
-                                    <label>
-                                        <input type="text" name="firstName" ng-model="table2.person2Add.firstName" value="" class="form-control" />
-                                    </label>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="form-group">
-                                    <label>
-                                        <input type="text" name="lastName" ng-model="table2.person2Add.lastName" value="" class="form-control" />
-                                    </label>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-labeled btn-success">
-                                        <span class="btn-label">
-                                            <em class="fa fa-plus"></em>
-                                        </span>Add
-                                    </button>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>Hero ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th></th>
+                            <th>Nome</th>
+                            <th>DDD + Telefone</th>
+                            <th>Tipo</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="hero in table2.heroes">
-                            <td>{{ hero.id }}</td>
-                            <td>{{ hero.firstName }}</td>
-                            <td>{{ hero.lastName }}</td>
-                            <td>
-                                <button type="button" ng-click="table2.modifyPerson($index)" class="btn btn-sm btn-warning">
-                                    <em class="fa fa-edit"></em>
-                                </button>
-                                <button type="button" ng-click="table2.removePerson($index)" class="btn btn-sm btn-danger">
-                                    <em class="fa fa-trash-o"></em>
-                                </button>
+                        <tr ng-repeat="item in telefones">
+                            <td>{{$index}}</td>
+
+                            <td class="text-center" ng-hide="item.modify">
+
+                                <div class="row">
+                                    <div class="text-center">
+                                        <div class="col-md-6 text-center"
+                                             popover="Editar"
+                                             popover-trigger="mouseenter">
+                                            <a ng-click="visualizar(item)">
+                                                <i class="fa icon-pencil"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6 text-center"
+                                             popover="Excluir"
+                                             popover-trigger="mouseenter">
+                                            <a ng-click="deleteConfirm($index)" href>
+                                                <i class="fa icon-trash text-danger"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </td>
+
+                            <td>
+                                {{ item.name || 'não definido' }}
+                            </td>
+
+                            <td>
+                                {{ item.ddd + ' ' + item.numero || 'não definido' }}
+                            </td>
+
+                            <td>
+                                {{ item.tipo || 'não definido' }}
+                            </td>
+
                         </tr>
                     </tbody>
                 </table>
-            </form>
-        </div>
-    </div>
-</div>
+				
+		   </div>
+
+            <div class="panel-body" ng-show="showInputs">
+
+                <fieldset>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            Contato
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="text"
+                                   name="code"
+                                   required
+                                   ng-model="telefone.name"
+                                   class="form-control ng-dirty ng-touched ng-invalid ng-invalid-required">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            DDD
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="text"
+                                   name="code"
+                                   required
+                                   maxlength="2"
+                                   ng-model="telefone.ddd"
+                                   class="form-control ng-dirty ng-touched ng-invalid ng-invalid-required">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            Número
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="text"
+                                   name="code"
+                                   required
+                                   maxlength="9"
+                                   ng-model="telefone.numero"
+                                   class="form-control ng-dirty ng-touched ng-invalid ng-invalid-required">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            Tipo
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="text"
+                                   name="code"
+                                   required
+                                   ng-model="telefone.tipo"
+                                   class="form-control ng-dirty ng-touched ng-invalid ng-invalid-required">
+                        </div>
+                    </div>
+                </fieldset>
+
+            </div>
+
+		</div>
+
+		<div class="modal-footer">
+            <button ng-click="ok(telefone)" ng-show="showInputs" class="btn btn-primary">Adicionar</button>
+			<button ng-click="ok(agenda)" ng-show="!showInputs" class="btn btn-primary">Salvar</button>
+			<button ng-click="cancel()" class="btn btn-warning">Cancelar</button>
+		</div>
+
+	</form>
+	
+    
+</script>
